@@ -1,0 +1,61 @@
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-do-list</title>
+</head>
+<body>
+<div class="container">
+    <h2>Tarefas Pendentes</h2>
+    <ul>
+        <% allTasks.filter(task => !task.conclusao).forEach(function(task) { %>
+        <li class="tasklist">
+            <!-- Exibir o nomeT e conclusao da tarefa -->
+            <p>Tarefa: <%= task.nomeT %></p>
+            <p>Conclusão: <%= task.conclusao %></p>
+            <!-- botao de Delete-->
+            <form action="/del" method="POST">
+                <input type="hidden" name="taskId" value="<%= task.id %>">
+                <button class="delete" type="submit">Excluir</button>
+            </form>
+            <!-- Botao de conclusão-->
+            <form action="/complete" method="POST">
+                <input type="hidden" name="taskId" value="<%= task.id %>">
+                <button class="complete" type="submit">Concluir Tarefa</button>
+            </form>
+        </li>
+        <% }); %>
+    </ul>
+    <hr>
+    <h2>Tarefas Concluídas</h2>
+    <ul>
+        <% allTasks.filter(task => task.conclusao).forEach(function(task) { %>
+        <li class="tasklist">
+            <!-- Exibir o nomeT e conclusao da tarefa -->
+            <p><del>Tarefa: <%= task.nomeT %></del></p>
+            <p><del>Conclusão: <%= task.conclusao %></del></p>
+            <!-- botao de Delete-->
+            <form action="/del" method="POST">
+                <input type="hidden" name="taskId" value="<%= task.id %>">
+                <button class="delete" type="submit">Excluir</button>
+            </form>
+            <!-- Botao de conclusão-->
+            <form action="/complete" method="POST">
+                <input type="hidden" name="taskId" value="<%= task.id %>">
+                <button class="complete" type="submit">Concluir Tarefa</button>
+            </form>
+        </li>
+        <% }); %>
+    </ul>
+    <br>
+    <form action="/add" method="POST" class="add-form">
+        <p>Adicionar tarefa</p>
+        <input type="text" name="nomeT" placeholder="Adicionar nova tarefa...">
+        <button type="submit">Adicionar</button>
+    </form>
+</div>
+<script src="/myscripts.js"></script>
+</body>
+</html>
